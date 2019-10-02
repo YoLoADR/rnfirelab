@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "653430336060",
+    "firebase_url": "https://rnfirelab.firebaseio.com",
+    "project_id": "rnfirelab",
+    "storage_bucket": "rnfirelab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653430336060:android:29ae75d150c1e9fb4b7139",
+        "android_client_info": {
+          "package_name": "com.rnfirelab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "653430336060-mg20puie5nflnv86q5fmq9gtkekf0eee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUi2UmxojAjKxesKKfsNYhVv9SslEjqMI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "653430336060-mg20puie5nflnv86q5fmq9gtkekf0eee.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
