@@ -6,10 +6,10 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-
-import firebase from '@react-native-firebase/app';
+import React from 'react';
+import { StyleSheet, Text, TextInput, View, Button, Platform  } from 'react-native';
+import { firebase } from '@react-native-firebase/auth';
+//import firebase from '@react-native-firebase/app';
 
 // TODO(you): import any additional firebase services that you require for your app, e.g for auth:
 //    1) install the npm package: `yarn add @react-native-firebase/auth@alpha` - you do not need to
@@ -18,30 +18,53 @@ import firebase from '@react-native-firebase/app';
 //    3) import the package here in your JavaScript code: `import '@react-native-firebase/auth';`
 //    4) The Firebase Auth service is now available to use here: `firebase.auth().currentUser`
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\nCmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\nShake or press menu button for dev menu',
-});
 
-const firebaseCredentials = Platform.select({
-  ios: 'https://invertase.link/firebase-ios',
-  android: 'https://invertase.link/firebase-android',
-});
 
-type Props = {};
 
-export default class App extends Component<Props> {
+export default class App extends React.Component {
+  state = { 
+    email: '', 
+    password: '', 
+    errorMessage: null,
+    logMessage: null
+   }
+
+  handleSignUp = () => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then((message) => this.setState({ logMessage: message }))
+      .catch(error => this.setState({ errorMessage: error.message }))
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome Yohann Ravino to React Native + Firebase!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-        {!firebase.apps.length && (
-          <Text style={styles.instructions}>
-            {`\nYou currently have no Firebase apps registered, this most likely means you've not downloaded your project credentials. Visit the link below to learn more. \n\n ${firebaseCredentials}`}
-          </Text>
-        )}
+        <Text style={{ color: '#e93766', fontSize: 40 }}>Sign Up</Text>
+        {this.state.errorMessage &&
+          <Text style={{ color: 'red' }}>
+            {this.state.errorMessage}
+          </Text>}
+          {this.state.logMessage &&
+          <Text style={{ color: 'blue' }}>
+            {this.state.errologMessagerMessage}
+          </Text>}
+        <TextInput
+          placeholder="Email"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={email => this.setState({ email })}
+          value={this.state.email}
+        />
+        <TextInput
+          secureTextEntry
+          placeholder="Password"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={password => this.setState({ password })}
+          value={this.state.password}
+        />
+        <Button title="Sign Up" color="#e93766" onPress={this.handleSignUp} />
       </View>
     );
   }
@@ -51,17 +74,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    alignItems: 'center'
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  textInput: {
+    height: 40,
+    fontSize:20,
+    width: '90%',
+    borderColor: '#9b9b9b',
+    borderBottomWidth: 1,
+    marginTop: 8,
+    marginVertical: 15
+  }
 });
